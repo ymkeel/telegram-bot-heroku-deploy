@@ -8,6 +8,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 TOKEN = '5060494830:AAHYMbYNGz9gTW73yCKRSgxB0UgLPPZlcK4'
+PORT = int(os.environ.get('PORT', 443))
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -56,8 +57,10 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_webhook(listen='0.0.0.0', port=int(os.environ.get('PORT', 443)), url_path=TOKEN)
-    updater.bot.setWebhook('https://ykb-bot.herokuapp.com/' + TOKEN)
+    updater.start_webhook(listen="0.0.0.0",
+                      port=int(PORT),
+                      url_path=TOKEN,
+                      webhook_url = 'https://ykb-bot.herokuapp.com/' + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
