@@ -39,7 +39,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("//TOKEN//", use_context=True)
+    updater = Updater("5060494830:AAHYMbYNGz9gTW73yCKRSgxB0UgLPPZlcK4", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -47,7 +47,7 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("piracy", piracy))
+    dp.add_handler(CommandHandler("privacy", privacy))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
