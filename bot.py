@@ -1,6 +1,8 @@
 import logging
 import os
+import wget
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -8,32 +10,44 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 TOKEN = '5060494830:AAHYMbYNGz9gTW73yCKRSgxB0UgLPPZlcK4'
-PORT = int(os.environ.get('PORT', 443))
+os.system("mega-login kesselyanniel@gmail.com yk15.EL+TIGRE")
+# PORT = int(os.environ.get('PORT', 443))
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
-def start(update, context):
-    """Send a message when the command /start is issued."""
-    update.message.reply_text('Hey this is your bot!')
+
+# def start(update, context):
+#     """Send a message when the command /start is issued."""
+#     update.message.reply_text('Hey this is your bot!')
 
 
-def help(update, context):
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Currently I am in Alpha stage, help me also!')
+# def help(update, context):
+#     """Send a message when the command /help is issued."""
+#     update.message.reply_text('Currently I am in Alpha stage, help me also!')
 
-def piracy(update, context):
-    update.message.reply_text('Ahhan, FBI wants to know your location!')
+# def piracy(update, context):
+#     update.message.reply_text('Ahhan, FBI wants to know your location!')
 
 
-def echo(update, context):
-    """Echo the user message."""
-    update.message.reply_text(update.message.text)
+# def echo(update, context):
+#     """Echo the user message."""
+#     update.message.reply_text(update.message.text)
 
 
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+def printMsg(update, context):
+    """Imprimir el mensaje entrante."""
+    url = update.message.reply_markup.inline_keyboard[0][0].url
+    # rand="".join(random.sample(string.ascii_lowercase+string.digits,20))
+    logger.info('Descargando el archivo')
+    wget.download(url, './heruk')
+    os.system('cd ./heruk && ls | cat -n | while read n f; do mv "$f" `printf "$RANDOM" $n`; done')
+    os.system('mega-put *')
+    os.system('rm * && cd ..')
+    logger.info('He Terminado!')
 
 def main():
     """Start the bot."""
@@ -45,22 +59,25 @@ def main():
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
-    # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("piracy", piracy))
+    ## on different commands - answer in Telegram
+    # dp.add_handler(CommandHandler("start", start))
+    # dp.add_handler(CommandHandler("help", help))
+    # dp.add_handler(CommandHandler("piracy", piracy))
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
+    dp.add_handler(MessageHandler(Filters.text, printMsg))
 
     # log all errors
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_webhook(listen="0.0.0.0",
-                      port=int(PORT),
-                      url_path=TOKEN,
-                      webhook_url = 'https://ykb-bot.herokuapp.com/' + TOKEN)
+    # Para Desarollo
+    updater.start_polling()
+    # Para Producion 
+    # updater.start_webhook(listen="0.0.0.0",
+    #                   port=int(PORT),
+    #                   url_path=TOKEN,
+    #                   webhook_url = 'https://ykb-bot.herokuapp.com/' + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
