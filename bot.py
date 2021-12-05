@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 TOKEN = '5060494830:AAHYMbYNGz9gTW73yCKRSgxB0UgLPPZlcK4'
 os.system("apt install ./megacmd.deb")
 os.system("mega-login kesselyanniel@gmail.com yk15.EL+TIGRE")
-# PORT = int(os.environ.get('PORT', 443))
+PORT = int(os.environ.get('PORT', 443))
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
